@@ -10,9 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Home()
-    );
+    return MaterialApp(home: Home());
   }
 }
 
@@ -30,13 +28,11 @@ class Home extends StatelessWidget {
               title: const Center(child: Text("TESTE")),
               closeTime: Duration(seconds: 3)
             );*/
-            CustomFeedback.customSnackBar(
-              context: context
-            );
-          }, 
-          child: const Text("Check Dialog")
-        )
-      )
+            CustomFeedback.snackBar(context: context);
+          },
+          child: const Text("Check Dialog"),
+        ),
+      ),
     );
   }
 }

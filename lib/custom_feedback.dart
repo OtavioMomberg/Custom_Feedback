@@ -5,7 +5,7 @@ import 'package:custom_feedback/src/models/dialog_model.dart';
 import 'package:custom_feedback/src/models/snackbar_model.dart';
 
 class CustomFeedback {
-  static Future<T?> customDialog<T>({
+  static Future<T?> dialog<T>({
     required BuildContext context,
     Widget title = const Text("Dialog"),
     Widget content = const Text("Dialog Content"),
@@ -40,7 +40,7 @@ class CustomFeedback {
     return CustomDialog.dialog(context: context, dialogModel: dialogModel);
   }
 
-  static void customSnackBar({
+  static void snackBar({
     required BuildContext context,
     Widget content = const Text("SnackBar Content"),
     Color backgroundColor = Colors.black,
@@ -56,16 +56,16 @@ class CustomFeedback {
     SnackBarAction? action,
   }) {
     final SnackbarModel snackbarModel = SnackbarModel(
-      content: content, 
-      backgroundColor: backgroundColor, 
-      shape: shape, 
-      showCloseIcon: showCloseIcon, 
-      closeIconColor: closeIconColor, 
-      duration: duration, 
+      content: content,
+      backgroundColor: backgroundColor,
+      shape: shape,
+      showCloseIcon: showCloseIcon,
+      closeIconColor: closeIconColor,
+      duration: duration,
       behavior: behavior,
       margin: margin,
       padding: padding,
-      action: action
+      action: action,
     );
 
     CustomSnackbar.snackbar(context: context, snackbarModel: snackbarModel);
