@@ -1,5 +1,5 @@
-import 'package:custom_feedback/custom_feedback.dart';
 import 'package:flutter/material.dart';
+import 'package:custom_feedback/custom_feedback.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,16 +23,16 @@ class Home extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () async {
-            /*CustomFeedback.customDialog(
+            CustomFeedback.dialog(
               context: context,
               title: const Center(child: Text("TESTE")),
               closeTime: Duration(seconds: 3)
-            );*/
+            );
             CustomFeedback.snackBar(context: context);
           },
-          child: const Text("Check Dialog"),
-        ),
-      ),
+          child: const Text("Check Dialog")
+        )
+      )
     );
   }
 }
