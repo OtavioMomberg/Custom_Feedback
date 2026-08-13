@@ -21,8 +21,10 @@ class CustomFeedback {
     MainAxisAlignment? actionsAlignment,
     EdgeInsetsGeometry? actionsPadding,
     List<Widget>? actions,
+    Future<T?> Function()? onOpen,
   }) {
-    final DialogModel dialogModel = DialogModel(
+
+    final DialogModel<T> dialogModel = DialogModel(
       title: title,
       content: content,
       closeIcon: closeIcon,
@@ -35,6 +37,7 @@ class CustomFeedback {
       actionsAlignment: actionsAlignment,
       actionsPadding: actionsPadding,
       actions: actions,
+      onOpen: onOpen
     );
 
     return CustomDialog.dialog(context: context, dialogModel: dialogModel);
@@ -55,6 +58,7 @@ class CustomFeedback {
     EdgeInsetsGeometry? padding,
     SnackBarAction? action,
   }) {
+    
     final SnackbarModel snackbarModel = SnackbarModel(
       content: content,
       backgroundColor: backgroundColor,

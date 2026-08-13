@@ -6,6 +6,7 @@ class CustomSnackbar {
     required BuildContext context, 
     required SnackbarModel snackbarModel
   }) {
+    
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: snackbarModel.content,

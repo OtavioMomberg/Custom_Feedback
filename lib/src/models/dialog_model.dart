@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DialogModel {
+class DialogModel<T> {
   final Widget title;
   final Widget content;
   final bool closeIcon;
@@ -13,6 +13,7 @@ class DialogModel {
   final MainAxisAlignment? actionsAlignment;
   final EdgeInsetsGeometry? actionsPadding;
   final List<Widget>? actions;
+  final Future<T?> Function()? onOpen;
 
   const DialogModel({
     required this.title,
@@ -26,6 +27,7 @@ class DialogModel {
     this.closeTime,
     this.actionsAlignment,
     this.actionsPadding,
-    this.actions
+    this.actions,
+    this.onOpen,
   });
 }
