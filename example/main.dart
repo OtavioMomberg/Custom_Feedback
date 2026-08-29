@@ -23,16 +23,15 @@ class Home extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () async {
-            CustomFeedback.dialog(
+            CustomFeedback.rawDialog(
               context: context,
               title: const Center(child: Text("TESTE")),
-              closeTime: Duration(seconds: 3)
+              closeTime: Duration(seconds: 3),
             );
-            CustomFeedback.snackBar(context: context);
           },
-          child: const Text("Check Dialog")
-        )
-      )
+          child: const Text("Check Dialog"),
+        ),
+      ),
     );
   }
 }

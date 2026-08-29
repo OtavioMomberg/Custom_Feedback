@@ -1,132 +1,385 @@
-## custom_feedback
+# custom_feedback
 
-Custom feedback package for Flutter, where you can customize easily some feedback tools such as: 
-- Customizable dialogs
+A Flutter package for easily displaying and customizing dialogs and SnackBars.
+
+The package provides both **fully customizable feedback components** and **ready-to-use dialogs** for common situations.
+
+## Features
+
+- Fully customizable dialogs
+- Ready-to-use standard dialogs
+- Ready-to-use error dialogs
+- Ready-to-use confirmation dialogs
+- Ready-to-use loading dialogs
 - Automatically closing dialogs
 - Optional dialog close button
 - Dialog actions
 - Generic dialog return values
-- Customizable Snackbars
-- Floating or fixed Snackbars
+- `onOpen` callbacks for dialogs
+- Customizable SnackBars
+- Floating or fixed SnackBars
 - SnackBar actions
 - Custom SnackBar close icon
 
 ## Getting started
 
-To get started, you need to add custom_feedback to your project. Follow the steps below:
-1. Open the terminal in your project root. You can do this by pressing ```Alt+F12``` in Android Studio or ```Ctrl+'``` in VS Code.
-2. Run the following command:
-```dart
+To get started, add `custom_feedback` to your Flutter project.
+
+### Installation
+
+1. Open the terminal in your project root.
+
+2. Run:
+
+```bash
 flutter pub add custom_feedback
 ```
 
-## Usage
+### Import
 
-Import ```custom_feedback.dart```
+Import the package in the file where you want to use it:
 
 ```dart
 import 'package:custom_feedback/custom_feedback.dart';
 ```
 
-### Dialog Example
+# Usage
 
-The dialog uses the Flutter mechanism ```showDialog``` to display the dialog on the screen. In ```CustomFeedback.customDialog``` you can focus only on the design of the dialog.
+The `CustomFeedback` class provides methods for displaying dialogs and SnackBars.
 
-```dart
-CustomFeedback.customDialog(context: context);
-```
+## Raw Dialog
 
-Here are all the parameters supported by ```CustomFeedback.customDialog``` method:
+The `rawDialog` method provides full control over the dialog appearance and behavior.
 
-```dart
-required BuildContext context,
-Widget title,
-Widget content,
-bool closeIcon,
-bool barrierDismissible,
-Color iconColor,
-Color backgroundColor,
-Color shadowColor,
-ShapeBorder shape,
-Duration? closeTime,
-MainAxisAlignment? actionsAlignment,
-EdgeInsetsGeometry? actionsPadding,
-List<Widget>? actions,
-```
+It uses Flutter's `showDialog` mechanism internally, allowing you to customize the dialog according to your needs.
 
-**context -** the context necessary to build the dialog
-
-**title -** content on the top of the dialog (usually a ```Text("")```)
-
-**content -** defines the main content of the dialog
-
-**closeIcon -** controls if an ```IconButton()``` will be displayed on the right of **title** to work as a close button
-
-**barrierDismissible -** controls whether is possible to close or not the dialog through click on the screen
-
-**iconColor -** defines a color to the icon used with the **closeIcon** property
-
-**backgroundColor -** defines the background color of the dialog
-
-**shadowColor -** applies the dialog shadow color
-
-**shape -** builds the shape of the dialog
-
-**closeTime -** sets a time to the dialog close automatically
-
-**actionsAlignment -** provides alignment properties for the action content
-
-**actionsPadding -** applies padding in the actions area
-
-**actions -** include a ```List<Widget>``` on the bottom of the dialog
-
-### SnackBar Example
-
-The SnackBar uses the Flutter mechanism ```ScaffoldMessenger``` to display the SnackBar on the screen. In ```CustomFeedback.customSnackBar``` you can focus only on the design of the SnackBar.
+### Basic example
 
 ```dart
-CustomFeedback.customSnackBar(context: context);
+CustomFeedback.rawDialog(
+  context: context,
+);
 ```
 
-Here are all the parameters supported by ```CustomFeedback.customSnackBar``` method:
+### Example with customization
 
 ```dart
-required BuildContext context,
-Widget content,
-Color backgroundColor,
-ShapeBorder shape,
-bool showCloseIcon,
-Color closeIconColor,
-Duration duration,
-SnackBarBehavior behavior,
-EdgeInsetsGeometry? margin,
-EdgeInsetsGeometry? padding,
-SnackBarAction? action,
+CustomFeedback.rawDialog(
+  context: context,
+  title: const Text("Hello"),
+  content: const Text("This is a custom dialog."),
+  closeIcon: true,
+  backgroundColor: Colors.white,
+  iconColor: Colors.black,
+);
 ```
 
-**context -** the context necessary to display the SnackBar
+### Parameters
 
-**content -** defines the main content of the SnackBar
+| Parameter | Description |
+|---|---|
+| `context` | The `BuildContext` required to display the dialog. |
+| `title` | Widget displayed at the top of the dialog. |
+| `content` | Main content of the dialog. |
+| `closeIcon` | Defines whether a close button is displayed next to the title. |
+| `barrierDismissible` | Defines whether the dialog can be dismissed by tapping outside it. |
+| `iconColor` | Defines the color of the close icon. |
+| `backgroundColor` | Defines the dialog background color. |
+| `shadowColor` | Defines the dialog shadow color. |
+| `shape` | Defines the dialog shape. |
+| `closeTime` | Defines how long the dialog remains open before closing automatically. |
+| `actionsAlignment` | Defines the alignment of the dialog actions. |
+| `actionsPadding` | Defines the padding around the dialog actions. |
+| `actions` | Defines the widgets displayed in the dialog actions area. |
+| `onOpen` | Asynchronous callback executed after the dialog is displayed. |
 
-**backgroundColor -** defines the background color of the SnackBar
+### Generic return value
 
-**shape -** builds the shape of the SnackBar
+`rawDialog` supports generic return values.
 
-**showCloseIcon -** controls if a close icon will be displayed on the right side of the SnackBar
+```dart
+final result = await CustomFeedback.rawDialog<bool>(
+  context: context,
+  title: const Text("Question"),
+  content: const Text("Do you want to continue?"),
+  actions: [
+    TextButton(
+      onPressed: () => Navigator.pop(context, true),
+      child: const Text("Yes"),
+    ),
+  ],
+);
+```
 
-**closeIconColor -** defines a color to the close icon used with the **showCloseIcon** property
+The returned value is the value passed to `Navigator.pop()`.
 
-**duration -** defines how long the SnackBar will remain visible
+### `closeTime` and `onOpen`
 
-**behavior -** defines how the SnackBar is displayed. It can be either ```SnackBarBehavior.fixed``` or ```SnackBarBehavior.floating```
+The `closeTime` parameter can be used to automatically close the dialog:
 
-**margin -** applies a margin around the SnackBar. This property is especially useful when using ```SnackBarBehavior.floating```
+```dart
+CustomFeedback.rawDialog(
+  context: context,
+  closeTime: const Duration(seconds: 3),
+);
+```
 
-**padding -** applies padding to the content area of the SnackBar
+The `onOpen` callback can be used when an asynchronous operation should be executed while the dialog remains open:
 
-**action -** adds a ```SnackBarAction``` to the SnackBar, allowing the user to perform an action while the SnackBar is visible
+```dart
+await CustomFeedback.loadingDialog(
+  context: context,
+  onOpen: () async {
+    await Future.delayed(const Duration(seconds: 5));
+  },
+);
+```
 
+When `onOpen` is provided, `closeTime` is ignored.
 
-## License
+> If `closeTime` is used, it is recommended to set `barrierDismissible` to `false` to prevent the user from closing the dialog manually.
+
+---
+
+# Standard Dialog
+
+The `standardDialog` method provides a simple, ready-to-use dialog for common situations.
+
+```dart
+CustomFeedback.standardDialog(
+  context: context,
+  title: "Information",
+  content: "This is a standard dialog.",
+);
+```
+
+### Customization
+
+The text and colors can be customized:
+
+```dart
+CustomFeedback.standardDialog(
+  context: context,
+  title: "Information",
+  content: "Your operation was completed.",
+  fontColor: Colors.black,
+  backgroundColor: Colors.white,
+);
+```
+
+The standard dialog includes:
+
+- A title
+- A text content
+- A close button
+- Customizable font color
+- Customizable background color
+
+---
+
+# Error Dialog
+
+The `errorDialog` method provides a ready-to-use dialog for displaying errors.
+
+```dart
+CustomFeedback.errorDialog(
+  context: context,
+);
+```
+
+By default, it displays an error title and automatically closes after 3 seconds.
+
+### Customization
+
+```dart
+CustomFeedback.errorDialog(
+  context: context,
+  title: "⚠️ Error ⚠️",
+  content: "Unable to complete the operation.",
+  fontColor: Colors.red,
+  backgroundColor: Colors.white,
+  closeTime: const Duration(seconds: 5),
+);
+```
+
+The `closeTime` parameter controls how long the error dialog remains visible.
+
+---
+
+# Confirm Dialog
+
+The `confirmDialog` method provides a ready-to-use confirmation dialog with two buttons.
+
+```dart
+final result = await CustomFeedback.confirmDialog(
+  context: context,
+  title: "Confirmation",
+  content: "Are you sure you want to continue?",
+);
+```
+
+The dialog provides two options:
+
+- **No** → returns `false`
+- **Yes** → returns `true`
+
+If the dialog is dismissed without selecting an option, the result can be `null`.
+
+### Example
+
+```dart
+final result = await CustomFeedback.confirmDialog(
+  context: context,
+  title: "Delete item",
+  content: "Are you sure you want to delete this item?",
+);
+
+if (result == true) {
+  // Delete item
+}
+```
+
+### Customization
+
+The buttons and dialog colors can be customized:
+
+```dart
+CustomFeedback.confirmDialog(
+  context: context,
+  title: "Delete item",
+  content: "This action cannot be undone.",
+  fontColor: Colors.black,
+  backgroundColor: Colors.white,
+  buttonColor: Colors.red,
+  buttonFontColor: Colors.white,
+);
+```
+
+---
+
+# Loading Dialog
+
+The `loadingDialog` method provides a ready-to-use loading dialog containing a `CircularProgressIndicator`.
+
+```dart
+CustomFeedback.loadingDialog(
+  context: context,
+);
+```
+
+By default, the dialog closes after 3 seconds.
+
+### Custom duration
+
+```dart
+CustomFeedback.loadingDialog(
+  context: context,
+  title: "Loading data...",
+  closeTime: const Duration(seconds: 5),
+);
+```
+
+### Using `onOpen`
+
+For operations where the dialog should remain open until an asynchronous task is completed, use `onOpen`.
+
+```dart
+await CustomFeedback.loadingDialog(
+  context: context,
+  title: "Loading data...",
+  onOpen: () async {
+    await Future.delayed(const Duration(seconds: 5));
+  },
+);
+```
+
+When `onOpen` is provided, the dialog remains open until the returned `Future` is completed.
+
+The `closeTime` parameter is ignored when `onOpen` is provided.
+
+### Generic return value
+
+`loadingDialog` also supports generic return values when using `onOpen`.
+
+```dart
+final result = await CustomFeedback.loadingDialog<String>(
+  context: context,
+  onOpen: () async {
+    await Future.delayed(const Duration(seconds: 2));
+    return "Finished";
+  },
+);
+```
+
+---
+
+# SnackBar
+
+The `snackBar` method provides a customizable SnackBar using Flutter's `ScaffoldMessenger`.
+
+### Basic example
+
+```dart
+CustomFeedback.snackBar(
+  context: context,
+);
+```
+
+### Customization
+
+```dart
+CustomFeedback.snackBar(
+  context: context,
+  content: const Text("Operation completed!"),
+  backgroundColor: Colors.green,
+  duration: const Duration(seconds: 3),
+);
+```
+
+### Parameters
+
+| Parameter | Description |
+|---|---|
+| `context` | The `BuildContext` required to display the SnackBar. |
+| `content` | Main content displayed inside the SnackBar. |
+| `backgroundColor` | Defines the SnackBar background color. |
+| `shape` | Defines the SnackBar shape. |
+| `showCloseIcon` | Defines whether a close icon is displayed. |
+| `closeIconColor` | Defines the close icon color. |
+| `duration` | Defines how long the SnackBar remains visible. |
+| `behavior` | Defines how the SnackBar is displayed: `fixed` or `floating`. |
+| `margin` | Defines the margin around the SnackBar. |
+| `padding` | Defines the padding inside the SnackBar. |
+| `action` | Adds a `SnackBarAction` to the SnackBar. |
+
+### Floating SnackBar
+
+```dart
+CustomFeedback.snackBar(
+  context: context,
+  content: const Text("Hello!"),
+  behavior: SnackBarBehavior.floating,
+  margin: const EdgeInsets.all(10),
+);
+```
+
+### SnackBar action
+
+```dart
+CustomFeedback.snackBar(
+  context: context,
+  content: const Text("Item deleted"),
+  action: SnackBarAction(
+    label: "UNDO",
+    onPressed: () {
+      // Restore item
+    },
+  ),
+);
+```
+
+---
+
+# License
 
 This package is licensed under the MIT License.
