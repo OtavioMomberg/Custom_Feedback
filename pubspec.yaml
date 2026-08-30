@@ -1,6 +1,6 @@
 name: custom_feedback
 description: A Flutter package to display customized dialogs and snackbars easily.
-version: 1.1.0
+version: 1.1.1
 repository: https://github.com/OtavioMomberg/custom_feedback
 homepage: https://github.com/OtavioMomberg/custom_feedback
 issue_tracker: https://github.com/OtavioMomberg/custom_feedback/issues
@@ -12,6 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  material_ui: 
 
 dev_dependencies:
   flutter_test:

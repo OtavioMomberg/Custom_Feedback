@@ -1,5 +1,5 @@
+import 'package:material_ui/material_ui.dart';
 import 'package:custom_feedback/src/widgets/button.dart';
-import 'package:flutter/material.dart';
 import 'package:custom_feedback/src/custom_dialog.dart';
 import 'package:custom_feedback/src/custom_snackbar.dart';
 import 'package:custom_feedback/src/models/dialog_model.dart';

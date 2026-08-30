@@ -1,5 +1,9 @@
 ## 1.1.0
 
+- Flutter updated to version 3.47.2
+
+## 1.1.0
+
 - New dialogs added:
 
 1. standardDialog

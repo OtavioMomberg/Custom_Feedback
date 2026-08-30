@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:custom_feedback/src/models/snackbar_model.dart';
 
 class CustomSnackbar {
